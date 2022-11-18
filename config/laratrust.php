@@ -268,8 +268,8 @@ return [
         | Turn this value to false if you don't want to use Laratrust admin panel
         |
         */
-        'register' => false,
-
+        'register' => true,
+        'restrict_non_administrators' => false,
         /*
         |--------------------------------------------------------------------------
         | Laratrust Panel Path
@@ -279,7 +279,7 @@ return [
         | will be accessible from.
         |
         */
-        'path' => 'laratrust',
+        'path' => 'rbac',
 
         /*
         |--------------------------------------------------------------------------

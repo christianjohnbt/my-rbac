@@ -1,14 +1,14 @@
 @extends('laratrust::panel.layout')
 
-@section('title', 'Permissions')
+@section('title', 'Teams')
 
 @section('content')
   <div class="flex flex-col">
     <a
-      href="{{route('laratrust.permissions.create')}}"
+      href="{{route('laratrust.teams.create')}}"
       class="self-end bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
     >
-      + New Permission
+      + New Team
     </a>
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <div class="mt-4 align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
@@ -23,34 +23,22 @@
             </tr>
           </thead>
           <tbody class="bg-white">
-            @foreach ($permissions as $permission)
+            @foreach ($teams as $team)
             <tr>
               <td class="td text-sm leading-5 text-gray-900">
-                {{$permission->id}}
+                {{$team->id}}
               </td>
               <td class="td text-sm leading-5 text-gray-900">
-                {{$permission->name}}
+                {{$team->name}}
               </td>
               <td class="td text-sm leading-5 text-gray-900">
-                {{$permission->display_name}}
+                {{$team->display_name}}
               </td>
               <td class="td text-sm leading-5 text-gray-900">
-                {{$permission->description}}
+                {{$team->description}}
               </td>
-              <td class="flex justify-end px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                <a href="{{route('laratrust.permissions.edit', $permission->id)}}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                  <form
-                    action="{{route('laratrust.permissions.destroy', $permission->id)}}"
-                    method="POST"
-                    onsubmit="return confirm('Are you sure you want to delete the record?');"
-                  >
-                    @method('DELETE')
-                    @csrf
-                    <button
-                      type="submit"
-                      class="text-red-600 hover:text-red-900 ml-4"
-                    >Delete</button>
-                  </form>
+              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                <a href="{{route('laratrust.teams.edit', $team->id)}}" class="text-blue-600 hover:text-blue-900">Edit</a>
               </td>
             </tr>
             @endforeach
@@ -59,5 +47,5 @@
       </div>
     </div>
   </div>
-  {{ $permissions->links('laratrust::panel.pagination') }}
+  {{ $teams->links('laratrust::panel.pagination') }}
 @endsection

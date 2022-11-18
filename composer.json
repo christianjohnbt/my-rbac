@@ -1,5 +1,5 @@
 {
-    "name": "santigarcor/laratrust",
+    "name": "christianjohnbt/laratrust",
     "description": "This package provides a flexible way to add Role-based Permissions to Laravel",
     "keywords": [
         "acl",
@@ -16,8 +16,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Santiago Garcia",
-            "homepage": "http://santigarcor.me"
+            "name": "Christian John Tiongco",
+            "homepage": "https://christianjohnbt.me"
         }
     ],
     "require": {

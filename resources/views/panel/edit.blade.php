@@ -29,20 +29,53 @@
             autocomplete="off"
           >
           @error('name')
-              <div class="text-red-500 text-sm mt-1">{{ $message}} </div>
+              <div class="text-red-500 text-sm mt-1">{{ $message }} </div>
           @enderror
         </label>
 
         <label class="block my-4">
           <span class="text-gray-700">Display Name</span>
           <input
-            class="form-input mt-1 block w-full"
+            class="form-input mt-1 block w-full @if($type == 'permission') bg-gray-200 text-gray-600 @endif @error('display_name')  border-red-500 @enderror"
             name="display_name"
-            placeholder="Edit user profile"
+            placeholder="Some name for the {{$type}}"
             x-model="displayName"
+            @if($type == 'permission')  readonly @endif
             autocomplete="off"
           >
+          @error('display_name')
+              <div class="text-red-500 text-sm mt-1">{{ $message }} </div>
+          @enderror
         </label>
+
+        @if($type == 'permission') 
+        <label class="block my-4">
+          <span class="text-gray-700">Permission to</span>
+          <input
+            class="form-input mt-1 block w-full"
+            name="permission_to"
+            placeholder="Permission to..."
+            x-model="permissionTo"
+            autocomplete="off"
+            @keyup="onChangeDisplayName()"
+          >
+            @error('permission_to')
+              <div class="text-red-500 text-sm mt-1">{{ $message }} </div>
+            @enderror
+        </label>
+        <label class="block my-4">
+          <span class="text-gray-700">Module Name</span>
+          <select class="form-select block w-full mt-1 @error('module_name') border-red-500 @enderror" x-model="moduleName" name="module_name" @change="onChangeDisplayName()">
+              <option value="">Select Module</option>
+              @foreach ($modelClasses as $modelClass)
+                <option value="{{ucwords($modelClass)}}">{{ucwords($modelClass)}}</option>
+              @endforeach
+            </select>
+            @error('module_name')
+              <div class="text-red-500 text-sm mt-1">{{ $message }} </div>
+            @enderror
+        </label>
+        @endif
 
         <label class="block my-4">
           <span class="text-gray-700">Description</span>
@@ -86,6 +119,10 @@
     window.laratrustForm =  function() {
       return {
         displayName: '{{ $model->display_name ?? old('display_name') }}',
+        moduleName: '{{ $model->module_name ?? old('module_name') }}',
+        @if($type == 'permission')
+        permissionTo: '{{ $model->permission_to ?? old('permission_to') }}',
+        @endif
         name: '{{ $model->name ?? old('name') }}',
         toKebabCase(str) {
           return str &&
@@ -95,9 +132,18 @@
               .join('-')
               .trim();
         },
+        capitalize(str)
+        {
+            return str?str[0].toUpperCase() + str.slice(1):str;
+        },
         onChangeDisplayName(value) {
-          this.name = this.toKebabCase(value);
-        }
+          @if($type == 'permission')
+            this.displayName = this.moduleName?this.capitalize(this.permissionTo)+' '+this.moduleName:this.capitalize(this.permissionTo)+' ';
+            this.name = this.moduleName?this.toKebabCase(this.moduleName)+'-'+this.toKebabCase(this.permissionTo):this.capitalize(this.permissionTo)+' ';
+          @else
+            this.name = this.toKebabCase(value);
+          @endif
+        },
       }
     }
   </script>

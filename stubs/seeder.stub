@@ -48,6 +48,7 @@ class LaratrustSeeder extends Seeder
                     $permissions[] = {{permissionConfiguredModelClass}}::firstOrCreate([
                         'name' => $module . '-' . $permissionValue,
                         'display_name' => ucfirst($permissionValue) . ' ' . ucfirst($module),
+                        'module_name' => ucfirst($module),
                         'description' => ucfirst($permissionValue) . ' ' . ucfirst($module),
                     ])->id;
 
