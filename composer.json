@@ -1,5 +1,5 @@
 {
-    "name": "christianjohnbt/laratrust",
+    "name": "christianjohnbt/my-rbac",
     "description": "This package provides a flexible way to add Role-based Permissions to Laravel",
     "keywords": [
         "acl",
