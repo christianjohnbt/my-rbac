@@ -66,6 +66,7 @@ class PermissionsController
         $permission = $this->permissionModel::findOrFail($id);
 
         $data = $request->validate([
+            'name' => 'required|string|unique:permissions,name',
             'display_name' => 'nullable|string',
             'module_name' => 'nullable|string',
             'description' => 'nullable|string',
